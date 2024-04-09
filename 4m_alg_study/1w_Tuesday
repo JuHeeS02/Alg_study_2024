@@ -1,0 +1,17 @@
+def Josephus(n,k):
+  result =[] #결과 저장
+  idx = 0 #idx = 인덱스값
+  mylist = list(range(1,n+1)) #1- n까지 숫자 리스트에 추가
+
+  for _ in range(n):
+    idx = (idx +k -1) % len(mylist) #인덱스가 계속해서 돌게
+    result.append (mylist[idx]) #추가
+    #해당 값 삭제
+    mylist.pop(idx)
+    #조건물 사용하지 않아도 됨 -> n 번만 반복하게 했기 때문에 비어있다면 자동으로 멈
+
+  print(result)
+
+if __name__ == '__main__':
+    N , K = map(int,input().split())
+    Josephus(N,K)
