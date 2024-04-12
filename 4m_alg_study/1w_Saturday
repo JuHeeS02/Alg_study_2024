@@ -1,4 +1,4 @@
-def sort_sentense(statement):
+def sort_sentence(statement):
     length = len(statement)
     ans =[None]*length
 
@@ -9,6 +9,6 @@ def sort_sentense(statement):
 
 N = int(input())
 for _ in range(N):
-    input_sentense = input().split()
-    for i in range(len(input_sentense)):
-        print(sort_sentense(input_sentense[i]))
+    input_sentence = input().split()
+    for i in range(len(input_sentence)):
+        print(sort_sentence(input_sentence[i]))
