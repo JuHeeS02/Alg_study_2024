@@ -1,0 +1,14 @@
+def sort_sentense(statement):
+    length = len(statement)
+    ans =[None]*length
+
+    for i in range(length):
+        ans[length - i - 1] = statement[i]
+    return ''.join(ans)  # 리스트를 문자열로 변환하여 반환
+
+
+N = int(input())
+for _ in range(N):
+    input_sentense = input().split()
+    for i in range(len(input_sentense)):
+        print(sort_sentense(input_sentense[i]))
