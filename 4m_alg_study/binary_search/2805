@@ -1,0 +1,24 @@
+N, M = map(int, input().split())
+trees = list(map(int, input().split()))
+
+left, right = 0, max(trees)  # 이진 탐색을 위한 초기 범위 설정
+
+result = 0  # 절단기에 설정할 수 있는 높이의 최댓값을 저장할 변수
+
+while left <= right:
+    mid = (left + right) // 2  # 이진 탐색을 위한 중간 높이 계산
+    
+    total_length = 0  # 현재 높이로 잘린 나무의 총 길이
+    
+    for tree in trees:
+        if tree > mid:
+            total_length += tree - mid
+    
+    # 잘린 나무의 총 길이가 상근이가 필요로 하는 나무의 길이(M)보다 크거나 같은 경우
+    if total_length >= M:
+        result = mid  # 현재의 높이를 결과에 저장
+        left = mid + 1  # 높이를 더 높여서 더 많이 잘라봄
+    else:
+        right = mid - 1  # 높이를 낮춰서 덜 잘라봄
+
+print(result)
