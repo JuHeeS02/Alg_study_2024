@@ -1,0 +1,46 @@
+def DFS(vtx, adj, s, visited):  # vtx는 정점의 리스트
+    # adj는 인접행렬 (연결이 되어있으면 1, 없으면 0으로 나타내져있음))
+    # s는 시작노드의 인덱스
+    # visited는 길이가 정점 수와 같은 False의 리스트 =[False]*len(vtx)
+    print(vtx[s], end='')
+    visited[s] = True  # 해당 노드 방문 True로 바꿔주기
+
+    for v in range(len(vtx)):
+        if adj[s][v] != 0:  # 해당 노드와 연결이 되어있다면
+            if visited[v] == False:  # 방문 안한 노드라면
+                DFS(vtx, adj, v, visited)  # 출력 후, visited = True로 바꾸고 연결된 노드 찾기
+
+
+from collections import deque
+
+
+def BFS(vtx, adj, s):
+    visited = [False] * len(vtx)
+    queue = deque([s])
+    visited[s] = True
+
+    while queue:
+        v = queue.popleft()  # 큐의 맨 앞 원소 꺼내기
+        print(vtx[v], end=' ')
+
+        for u in range(len(vtx)):
+            if adj[v][u] != 0:
+                if visited[u] == False:
+                    queue.append(u)  # 큐에 추가하기
+                    visited[u] = True  # 방문 표시하기
+
+
+if __name__ == '__main__':
+    N,M,V = map(int,input().split())
+    vtx = list(range(1,N+1))
+    edge = [[0] *N for _ in range(N)]
+
+    for _ in range(M):
+        s, t = map(int, input().split())
+        edge[s - 1][t - 1] = 1
+        edge[t - 1][s - 1] = 1
+
+    visited = [False] * N
+    DFS (vtx,edge,V-1,visited)
+    print()
+    BFS(vtx,edge,V-1)
