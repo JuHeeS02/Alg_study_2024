@@ -39,8 +39,48 @@ if __name__ == '__main__':
         s, t = map(int, input().split())
         edge[s - 1][t - 1] = 1
         edge[t - 1][s - 1] = 1
-
     visited = [False] * N
     DFS (vtx,edge,V-1,visited)
     print()
     BFS(vtx,edge,V-1)
+
+
+'''
+========================================================================
+'''
+
+from queue import Queue
+
+def BFS_AL(vtx, aList, s):
+    n = len(vtx)
+    visited = [False] * n
+    Q = Queue()
+    Q.put(s)
+    visited[s] = True
+    while not Q.empty():
+        s = Q.get()
+        print(vtx[s], end=' ')  # 노드 값을 출력합니다. 출력 시 띄어쓰기를 포함합니다.
+        for v in sorted(aList[s]):
+            if not visited[v]:
+                Q.put(v)
+                visited[v] = True  # 방문한 노드를 표시합니다.
+
+def DFS_AL(vtx, aList, s, visited):
+    print(vtx[s], end=' ')  # 노드 값을 출력합니다. 출력 시 띄어쓰기를 포함합니다.
+    visited[s] = True  # 방문한 노드를 표시합니다.
+    for v in sorted(aList[s]):
+        if not visited[v]:
+            DFS_AL(vtx, aList, v, visited)
+
+if __name__ == '__main__':
+    N, M, V = map(int, input().split())
+    vtx = list(range(1, N + 1))  # 노드 번호를 1부터 N까지로 설정합니다.
+    aList = [[] for _ in range(N)]  # 인접 리스트를 생성합니다.
+    for _ in range(M):
+        s, t = map(int, input().split())
+        aList[s - 1].append(t - 1)  # 간선 정보를 입력받을 때 각 번호에서 1을 빼줍니다.
+        aList[t - 1].append(s - 1)
+    visited = [False] * N
+    DFS_AL(vtx, aList, V - 1, visited)
+    print()
+    BFS_AL(vtx, aList, V - 1)
