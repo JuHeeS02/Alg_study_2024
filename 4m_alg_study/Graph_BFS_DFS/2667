@@ -1,1 +1,82 @@
+def DFS(adj, s, visited, num):
+    visited[s] = True
 
+    for v in range(len(adj)):
+        if adj[s][v] == 1:
+            if not visited[v]:
+                DFS(adj, v, visited, num)
+
+
+if __name__ == '__main__':
+    N = int(input())
+    edge = []  # 인접행렬 초기화
+    for _ in range(N):
+        row = list(map(int, input().strip()))  # 각 숫자를 리스트로 변환하여 저장
+        edge.append(row)
+    visited = [False] * N
+    num = 0
+    sizes = []
+
+    for i in range(N):
+        for j in range(N):
+            if edge[i][j] == 1 and not visited[j]:
+                num += 1  # 단지 번호 증가
+                size = 0
+                DFS(edge, j, visited, num)
+                for k in range(N):
+                    if visited[k]:
+                        size += 1
+                        visited[k] = False  # 방문한 노드 초기화하기
+                sizes.append(size)
+
+
+'''
+===========================================================================================
+'''
+def DFS(x, y):
+    global cnt  # cnt를 사용하기 위해 global 선언
+    visited[x][y] = True  # 현재 위치를 방문했다고 표시
+    if edge[x][y] == 1:  # 만약 현재 위치가 집이라면
+        cnt += 1  # 집의 수를 증가시킴
+    for i in range(4):  # 상하좌우 방향을 모두 확인
+        nx = x + dx[i]  # 다음 위치의 x 좌표 계산
+        ny = y + dy[i]  # 다음 위치의 y 좌표 계산
+        if 0 <= nx < N and 0 <= ny < N:  # 지도 범위 내에 있는지 확인
+            if not visited[nx][ny] and edge[nx][ny] == 1:  # 방문하지 않았고, 집이 있는 곳이라면
+                DFS(nx, ny)  # dfs를 재귀적으로 호출
+
+# 상하좌우 이동 설정
+dx = [0, 0, -1, 1]  # x 방향으로 이동하는 값
+dy = [1, -1, 0, 0]  # y 방향으로 이동하는 값
+
+if __name__ == '__main__':
+    N = int(input())
+    edge = [[0]*N for _ in range(N)]  # 지도: 2차원 리스트 초기화
+    visited = [[False]*N for _ in range(N)]
+    cnt = 0
+    sizes = []
+
+    for i in range(N):
+        row = input()  # 한 줄씩 입력받음
+        row = row.replace(" ", "")  # 공백 제거
+        row = row.replace("\t", "")  # 탭 제거
+        for j, b in enumerate(row):
+            edge[i][j] = int(b)  # 정수로 변환하여 edge에 저장
+
+    for i in range(N):
+        for j in range(N):
+            if edge[i][j] == 1 and not visited[i][j]:
+                DFS(i,j)
+                sizes.append(cnt)
+                cnt = 0  # cnt 초기화
+
+    sizes.sort()
+    print(len(sizes))
+    for size in sizes:
+        print(size)
+#출처 : https://hei-jayden.tistory.com/99
+
+    sizes.sort()
+    print(num)
+    for size in sizes:
+        print(size)
