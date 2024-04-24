@@ -1,1 +1,35 @@
+def DFS(x, y,visited,edge):
+    visited[x][y] = True
+    cnt = 1
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx < N and 0 <= ny < M:
+            if not visited[nx][ny] and edge[nx][ny] == 1:
+                cnt += DFS(nx, ny,visited,edge)
+    return cnt
+
+# 상하좌우 이동 설정
+dx = [0, 0, -1, 1]  # x 방향으로 이동하는 값
+dy = [1, -1, 0, 0]  # y 방향으로 이동하는 값
+
+if __name__ == '__main__':
+    T = int(input())
+    for _ in range(T):
+        M,N,K = map(int,input().split())
+        edge = [[0]*M for _ in range(N)]  # 지도: 2차원 리스트 초기화
+        visited = [[False]*M for _ in range(N)]
+        ans = 0
+
+        for _ in range(K):
+            x,y = map(int,input().split())
+            edge[y][x] =1 #입력이 가로 세로로 입력
+
+        for i in range(N):
+            for j in range(M):
+                if edge[i][j] == 1 and not visited[i][j]:
+                    cnt = DFS(i,j,visited,edge)
+                    ans +=1
+
+        print(ans)
 
