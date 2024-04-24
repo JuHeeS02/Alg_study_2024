@@ -1,1 +1,23 @@
+from queue import Queue
+
+def BFS_AL(start, end):
+    visited = [False] * 100001
+    visited[start] = True
+
+    Q = Queue()
+    Q.put(start)  # 시작 위치를 큐에 넣습니다.
+
+    while not Q.empty():
+        cnt = Q.get()
+        if cnt == end:
+            return visited[cnt]  # 현재 위치까지의 최단 이동 횟수를 반환합니다.
+        for i in (cnt + 1, cnt - 1, cnt * 2):
+            if 0 <= i < 100001 and not visited[i]:
+                visited[i] = visited[cnt] + 1
+                Q.put(i)
+
+if __name__ == '__main__':
+    N, K = map(int, input().split())
+    cnt = BFS_AL(N, K)
+    print(cnt-1)
 
