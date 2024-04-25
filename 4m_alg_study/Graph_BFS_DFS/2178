@@ -1,1 +1,37 @@
+from queue import Queue
+
+def BFS(edge, x, y, visited):
+    N = len(edge)
+    M = len(edge[0])
+
+    # 방향 벡터 설정 (상하좌우)
+    dx = [-1, 1, 0, 0]
+    dy = [0, 0, -1, 1]
+
+    Q = Queue()
+    Q.put((x, y))  # 시작 위치를 큐에 넣습니다.
+    visited[x][y] = True  # 방문 표시
+
+    while not Q.empty():
+        x, y = Q.get()
+
+        # 상하좌우로 이동하며 탐색
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < N and 0 <= ny < M:
+                if edge[nx][ny] == 1 and not visited[nx][ny]:
+                    visited[nx][ny] = visited[x][y] + 1
+                    Q.put((nx, ny))
+    return visited[N - 1][M - 1]
+
+if __name__ == '__main__':
+    N, K = map(int, input().split())
+    edge = []  # edge 초기화
+    visited = [[False] * K for _ in range(N)]
+    for _ in range(N):  # N이 세로
+        row = list(map(int, input().strip()))
+        edge.append(row)
+    cnt = BFS(edge, 0, 0, visited)
+    print(cnt)
 
