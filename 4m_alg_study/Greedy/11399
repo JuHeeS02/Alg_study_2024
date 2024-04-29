@@ -1,0 +1,9 @@
+n = int(input())
+mylist = list(map(int,input().split()))
+
+sort_mylist = sorted(mylist)
+ans = 0
+for i in range(1,len(sort_mylist)+1):
+    ans +=sum(sort_mylist[:i])
+
+print(ans)
