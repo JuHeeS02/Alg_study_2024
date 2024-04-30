@@ -1,1 +1,12 @@
+def min_cent(N, K, cent):
+    ans = 0
+    for i in reversed(range(N)):
+        ans += K // cent[i]
+        K %= cent[i]
+    return ans
+
+if __name__ == '__main__':
+    N, K = map(int, input().split())
+    cent = [int(input()) for _ in range(N)]
+    print(min_cent(N, K, cent))
 
