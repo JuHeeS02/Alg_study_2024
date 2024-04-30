@@ -1,1 +1,12 @@
+def max_level(mylist):
+    sorted_mylist = sorted(mylist)
+    n = len(mylist)
+    ans = sorted_mylist[n-1] * (n-1)
+    for i in range(n-1):
+        ans += sorted_mylist[i]
+    return ans
 
+if __name__ == '__main__':
+    N = int(input())
+    mylist = list(map(int,input().split()))
+    print(max_level(mylist))
