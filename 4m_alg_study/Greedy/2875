@@ -1,1 +1,33 @@
+def max_team(N, M, K):
+    team,least = 0,0
+    if N >= 2*M :
+        team = M
+        least +=  (N-2*M)
+    else:
+        team = N//2
+        least += (M - N//2)
+    if least >K:
+        return team
+    else:
+        return team-1
 
+
+if __name__ == '__main__':
+    N, M ,K = map(int, input().split())
+    print(max_team(N,M,K))
+
+'''
+===================================================================================
+'''
+
+def max_team(N, M, K):
+    team = 0
+    while N>=2 and M>=1 and N+M >=K+3:
+            N-=2
+            M-=1
+            team +=1
+    return team
+
+if __name__ == '__main__':
+    N, M ,K = map(int, input().split())
+    print(max_team(N,M,K))
